@@ -21,13 +21,14 @@ public class Logica {
 
     public void respUsuario(int num) {
         respUsuario.add(num);
-        trigger--;
-    }
+        if (trigger>0)
+            trigger--;
+         }
 
     public void random() {
 
         for (int i = 0; i < 6; i++) {
-            int y = (int)(Math.random() * 49 + 1);
+            int y = (int) (Math.random() * 49 + 1);
             for (int x = 0; x < 6; i++) {
                 if (aleatorio.indexOf(x) == y) {
                     i--;
@@ -48,11 +49,10 @@ public class Logica {
         }
     }
 
-    public ArrayList impresion() {
+    public void impresion() {
         for (int i = 0; i < aleatorio.size(); i++) {
             int aux = aleatorio.get(i);
             impresion.add(aux + " ");
         }
-        return impresion;
     }
 }

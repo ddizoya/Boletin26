@@ -5,6 +5,8 @@
  */
 package javaapplication6;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author ddizoya
@@ -17,16 +19,18 @@ public class Bonoloto extends javax.swing.JFrame {
     public Bonoloto() {
         initComponents();
         setTitle("Bonoloto");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }
     Logica aux = new Logica();
 
     public void init() {
         if (Logica.trigger == 0) {
-            jPanel2.setEnabled(false);
             aux.random();
             aux.comparacion();
-            jTextField1.setText(""+aux.impresion);
+            aux.impresion();
+            jTextField1.setText("" + aux.impresion);
+            jTextField2.setText("" + Logica.aciertos);
         }
     }
 
