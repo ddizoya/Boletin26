@@ -5,6 +5,8 @@
  */
 package javaapplication6;
 
+import java.util.ArrayList;
+import java.util.Random;
 import javax.swing.JFrame;
 
 /**
@@ -13,24 +15,64 @@ import javax.swing.JFrame;
  */
 public class Bonoloto extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Bonoloto
-     */
+    int trigger;
+    int aciertos;
+    Random r = new Random();
+    ArrayList impresion = new ArrayList();
+    ArrayList<Integer> aleatorio = new ArrayList<>();
+    ArrayList<Integer> respUsuario = new ArrayList<>();
+
     public Bonoloto() {
         initComponents();
         setTitle("Bonoloto");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
     }
-    Logica aux = new Logica();
+
+    public void respUsuario(int num) {
+        respUsuario.add(num);
+        if (trigger < 6) {
+            trigger++;
+        }
+    }
+
+    public void random() {
+        for (int i = 0; i < 6; i++) {
+            int y = r.nextInt(49) + 1;
+            for (int x = 0; x < 6; i++) {
+                if (aleatorio.indexOf(x) == y) {
+                    i--;
+                } else {
+                    aleatorio.add(y);
+                }
+            }
+        }
+    }
+
+    public void comparacion() {
+        for (int i = 0; i < aleatorio.size(); i++) {
+            int a = aleatorio.get(i);
+            int b = respUsuario.get(i);
+            if (a == b) {
+                aciertos++;
+            }
+        }
+    }
+
+    public void impresion() {
+        jLabel7.setText(String.valueOf(aleatorio.get(0)));
+        jLabel8.setText(String.valueOf(aleatorio.get(1)));
+        jLabel9.setText(String.valueOf(aleatorio.get(2)));
+        jLabel10.setText(String.valueOf(aleatorio.get(3)));
+        jLabel11.setText(String.valueOf(aleatorio.get(4)));
+        jLabel12.setText(String.valueOf(aleatorio.get(5)));
+    }
 
     public void init() {
-        if (Logica.trigger == 0) {
-            aux.random();
-            aux.comparacion();
-            aux.impresion();
-            jTextField1.setText("" + aux.impresion);
-            jTextField2.setText("" + Logica.aciertos);
+        if (trigger == 5) {
+            comparacion();
+            impresion();
+            jPanel2.setVisible(false);
+            
         }
     }
 
@@ -88,10 +130,23 @@ public class Bonoloto extends javax.swing.JFrame {
         jButton47 = new javax.swing.JButton();
         jButton48 = new javax.swing.JButton();
         jButton49 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        panelResultados = new javax.swing.JPanel();
+        labelUsuarios = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        labelAgraciados = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -114,11 +169,6 @@ public class Bonoloto extends javax.swing.JFrame {
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton2MouseClicked(evt);
-            }
-        });
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
             }
         });
         jPanel2.add(jButton2);
@@ -433,156 +483,177 @@ public class Bonoloto extends javax.swing.JFrame {
         jButton49.setContentAreaFilled(false);
         jPanel2.add(jButton49);
 
-        jLabel1.setForeground(new java.awt.Color(240, 23, 23));
-        jLabel1.setText("Números agraciados");
+        panelResultados.setLayout(new javax.swing.BoxLayout(panelResultados, javax.swing.BoxLayout.Y_AXIS));
 
-        jLabel2.setForeground(new java.awt.Color(240, 23, 23));
-        jLabel2.setText("Número de aciertos");
+        labelUsuarios.setForeground(new java.awt.Color(240, 23, 23));
+        labelUsuarios.setText("Números escogidos");
+        panelResultados.add(labelUsuarios);
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
+        jPanel4.setMaximumSize(new java.awt.Dimension(165, 26));
+        jPanel4.setMinimumSize(new java.awt.Dimension(165, 26));
+        jPanel4.setPreferredSize(new java.awt.Dimension(165, 26));
+        jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.X_AXIS));
+        jPanel4.add(jLabel13);
+        jPanel4.add(jLabel14);
+        jPanel4.add(jLabel15);
+        jPanel4.add(jLabel16);
+        jPanel4.add(jLabel17);
+        jPanel4.add(jLabel18);
+
+        panelResultados.add(jPanel4);
+
+        labelAgraciados.setForeground(new java.awt.Color(240, 23, 23));
+        labelAgraciados.setText("Números agraciados");
+        panelResultados.add(labelAgraciados);
+
+        jPanel1.setMaximumSize(new java.awt.Dimension(165, 26));
+        jPanel1.setMinimumSize(new java.awt.Dimension(165, 26));
+        jPanel1.setPreferredSize(null);
+        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.X_AXIS));
+
+        jLabel7.setMaximumSize(new java.awt.Dimension(100, 100));
+        jLabel7.setName(""); // NOI18N
+        jPanel1.add(jLabel7);
+
+        jLabel8.setMaximumSize(new java.awt.Dimension(100, 100));
+        jLabel8.setName(""); // NOI18N
+        jPanel1.add(jLabel8);
+
+        jLabel9.setMaximumSize(new java.awt.Dimension(100, 100));
+        jLabel9.setName(""); // NOI18N
+        jPanel1.add(jLabel9);
+
+        jLabel10.setMaximumSize(new java.awt.Dimension(100, 100));
+        jLabel10.setName(""); // NOI18N
+        jPanel1.add(jLabel10);
+
+        jLabel11.setMaximumSize(new java.awt.Dimension(100, 100));
+        jLabel11.setName(""); // NOI18N
+        jPanel1.add(jLabel11);
+
+        jLabel12.setMaximumSize(new java.awt.Dimension(100, 100));
+        jLabel12.setName(""); // NOI18N
+        jPanel1.add(jLabel12);
+
+        panelResultados.add(jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField1)
-                            .addComponent(jTextField2))))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55)
+                .addComponent(panelResultados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelResultados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        aux.respUsuario(1);
+        respUsuario(1);
         jButton1.setEnabled(false);
         init();
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        aux.respUsuario(2);
+        respUsuario(2);
         jButton2.setEnabled(false);
         init();
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
-        aux.respUsuario(3);
+        respUsuario(3);
         jButton3.setEnabled(false);
         init();
     }//GEN-LAST:event_jButton3MouseClicked
 
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
-        aux.respUsuario(4);
+        respUsuario(4);
         jButton4.setEnabled(false);
         init();
     }//GEN-LAST:event_jButton4MouseClicked
 
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
-        aux.respUsuario(5);
+        respUsuario(5);
         jButton5.setEnabled(false);
         init();
     }//GEN-LAST:event_jButton5MouseClicked
 
     private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
-        aux.respUsuario(6);
+        respUsuario(6);
         jButton6.setEnabled(false);
         init();
     }//GEN-LAST:event_jButton6MouseClicked
 
     private void jButton7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseClicked
-        aux.respUsuario(7);
+        respUsuario(7);
         jButton7.setEnabled(false);
         init();
     }//GEN-LAST:event_jButton7MouseClicked
 
     private void jButton8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton8MouseClicked
-        aux.respUsuario(8);
+        respUsuario(8);
         jButton8.setEnabled(false);
         init();
     }//GEN-LAST:event_jButton8MouseClicked
 
     private void jButton9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton9MouseClicked
-        aux.respUsuario(9);
+        respUsuario(9);
         jButton9.setEnabled(false);
         init();
     }//GEN-LAST:event_jButton9MouseClicked
 
     private void jButton10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton10MouseClicked
-        aux.respUsuario(10);
+        respUsuario(10);
         jButton10.setEnabled(false);
         init();
     }//GEN-LAST:event_jButton10MouseClicked
 
     private void jButton11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton11MouseClicked
-        aux.respUsuario(11);
+        respUsuario(11);
         jButton11.setEnabled(false);
         init();
     }//GEN-LAST:event_jButton11MouseClicked
 
     private void jButton12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton12MouseClicked
-        aux.respUsuario(12);
+        respUsuario(12);
         jButton12.setEnabled(false);
     }//GEN-LAST:event_jButton12MouseClicked
 
     private void jButton13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton13MouseClicked
-        aux.respUsuario(13);
+        respUsuario(13);
         jButton13.setEnabled(false);
     }//GEN-LAST:event_jButton13MouseClicked
 
     private void jButton14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton14MouseClicked
-        aux.respUsuario(14);
+        respUsuario(14);
         jButton14.setEnabled(false);
     }//GEN-LAST:event_jButton14MouseClicked
 
     private void jButton15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton15MouseClicked
-        aux.respUsuario(15);
+        respUsuario(15);
         jButton15.setEnabled(false);
     }//GEN-LAST:event_jButton15MouseClicked
 
     private void jButton16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton16MouseClicked
-        aux.respUsuario(16);
+        respUsuario(16);
         jButton16.setEnabled(false);
     }//GEN-LAST:event_jButton16MouseClicked
 
     private void jButton17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton17MouseClicked
-        aux.respUsuario(17);
+        respUsuario(17);
         jButton17.setEnabled(false);
     }//GEN-LAST:event_jButton17MouseClicked
 
@@ -671,10 +742,23 @@ public class Bonoloto extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JLabel labelAgraciados;
+    private javax.swing.JLabel labelUsuarios;
+    private javax.swing.JPanel panelResultados;
     // End of variables declaration//GEN-END:variables
 }
